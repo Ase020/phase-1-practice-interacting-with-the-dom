@@ -6,7 +6,29 @@ document.addEventListener("DOMContentLoaded", (e) => {
       counter.textContent = count;
    }
    const counter = document.getElementById("counter");
-   setInterval(startCount, 1000);
+   intervalID = setInterval(startCount, 1000);
 
    const pauseBtn = document.getElementById("pause");
+   pauseBtn.addEventListener("click", () => {
+      clearInterval(intervalID);
+      buttonsArray.forEach((btn) => disableButtons(btn));
+      pauseBtn.textContent = "resume";
+      console.log("paused");
+   });
+
+   //    Disable buttons when on pause
+   const buttons = document.getElementsByTagName("button");
+   let buttonsArray = [];
+
+   for (let i = 0; i < buttons.length; i++) {
+      if (buttons[i].id !== "pause") {
+         buttonsArray.push(buttons[i]);
+      }
+   }
+
+   function disableButtons(btn) {
+      btn.setAttribute("disable", true);
+   }
+
+   console.log(buttonsArray);
 });
